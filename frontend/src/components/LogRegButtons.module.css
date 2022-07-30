@@ -1,0 +1,8 @@
+.button {
+  /* background-color: rgb(48, 50, 61); */
+  border: rgb(58, 68, 84);
+  box-shadow: 0.2rem 0.2rem rgba(39, 38, 38, 0.622);
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  margin: 0 2rem;
+}
