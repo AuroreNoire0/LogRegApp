@@ -1,6 +1,5 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
 import useNewInput from '../hooks/use-new-input';
 import styles from './LogModal.module.css';
 import Nav from 'react-bootstrap/Nav';
@@ -81,7 +80,7 @@ const LogModal = props => {
         </Form.Group>
 
         <div className={styles.btns}>
-          <Nav.Link href="/log">
+          <Nav.Link href="/logged">
             <Button
               variant="primary"
               type="submit"

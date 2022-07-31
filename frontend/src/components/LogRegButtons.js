@@ -1,7 +1,6 @@
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import styles from './LogRegButtons.module.css';
-import { Link } from 'react-router-dom';
 
 const LogRegButtons = props => {
   return (

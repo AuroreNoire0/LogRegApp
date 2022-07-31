@@ -1,14 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Switch,
+} from 'react-router-dom';
 import Background from './components/Background';
 import Footer from './components/Footer';
 import Home from './components/views/Home';
-import AdminPanel from './components/views/AdminPanel';
 import Navigation from './components/Navigation';
 import LogModal from './modals/LogModal';
 import RegModal from './modals/RegModal';
-import Test from './Test';
 
 const App = () => {
   const [logModalOpened, setLogModalOpened] = useState(false);
@@ -50,8 +53,7 @@ const App = () => {
         onLogOut={logOutHandler}
         userLogged={userLogged}
       ></Navigation>
-      {/* {!logModalOpened && !regModalOpened && !userLogged && <Home />}
-        {!logModalOpened && !regModalOpened && userLogged && <Background />} */}
+
       {logModalOpened && !regModalOpened && (
         <LogModal
           onCloseLogModal={closeLogModal}
@@ -62,14 +64,10 @@ const App = () => {
         <RegModal onCloseRegModal={closeRegModal} />
       )}
 
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/log">
-          <Background />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route exact path="/" element={<Home />}></Route>
+        <Route path="/logged" element={<Background />}></Route>
+      </Routes>
 
       <Footer></Footer>
     </Router>

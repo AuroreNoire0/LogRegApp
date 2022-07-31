@@ -2,7 +2,6 @@ import styles from './Navigation.module.css';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import LogRegButtons from './LogRegButtons';
-import { Link } from 'react-router-dom';
 
 function Navigation(props) {
   const navStyle = `${styles.nav} d-flex justify-content-between`;

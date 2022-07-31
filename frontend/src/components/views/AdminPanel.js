@@ -29,16 +29,11 @@ const AdminPanel = () => {
     setUsers(data);
   };
 
-  console.log(users);
-
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const selectAllChangeHandler = () => {
-    // const checkboxes = Array.from(
-    //   document.querySelectorAll('input[aria-label^="user"]')
-    // );
     if (selectAll.current.checked) {
       checkboxes.forEach(cb => (cb.checked = true));
     } else if (!selectAll.current.checked) {
@@ -47,9 +42,6 @@ const AdminPanel = () => {
   };
 
   const changeSelectAll = event => {
-    // const checkboxes = Array.from(
-    //   document.querySelectorAll('input[aria-label^="user"]')
-    // );
     const checkboxesChecked = checkboxes.filter(cb => cb.checked);
     if (checkboxes.length === checkboxesChecked.length) {
       selectAll.current.checked = true;
@@ -57,7 +49,6 @@ const AdminPanel = () => {
       selectAll.current.checked = false;
     }
   };
-  console.log(users.length);
 
   const btnsStyles = `${styles.actionButtons}`;
   return (
