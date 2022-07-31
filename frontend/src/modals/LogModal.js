@@ -3,8 +3,10 @@ import Form from 'react-bootstrap/Form';
 import useNewInput from '../hooks/use-new-input';
 import styles from './LogModal.module.css';
 import Nav from 'react-bootstrap/Nav';
+import { useNavigate } from 'react-router-dom';
 
 const LogModal = props => {
+  let navigate = useNavigate();
   const isNotEmpty = value => value.trim() !== '';
   const isEmail = value => value.includes('@');
 
@@ -34,6 +36,7 @@ const LogModal = props => {
     console.log('submitted');
     console.log(event.target);
     props.onClickLogBtn();
+    navigate('/admin');
   };
 
   const passwordStyles = passwordHasError
@@ -80,17 +83,16 @@ const LogModal = props => {
         </Form.Group>
 
         <div className={styles.btns}>
-          <Nav.Link href="/logged">
-            <Button
-              variant="primary"
-              type="submit"
-              onClick={logIn}
-              className={styles.subBtn}
-              disabled={!formIsValid}
-            >
-              Log in
-            </Button>
-          </Nav.Link>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={logIn}
+            className={styles.subBtn}
+            disabled={!formIsValid}
+          >
+            Log in
+          </Button>
+
           <Button
             variant="secondary"
             type="button"

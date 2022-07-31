@@ -4,7 +4,6 @@ import styles from './LogModal.module.css';
 import useNewInput from '../hooks/use-new-input';
 import { useState } from 'react';
 import axios from 'axios';
-import Nav from 'react-bootstrap/Nav';
 
 const RegModal = props => {
   const isNotEmpty = value => value.trim() !== '';
@@ -42,7 +41,6 @@ const RegModal = props => {
     hasError: nameHasError,
     valueChangedHandler: nameChangedHandler,
     inputBlurHandler: nameBlurHandler,
-    reset: nameReset,
   } = useNewInput(isNotEmpty);
 
   const {
@@ -51,7 +49,6 @@ const RegModal = props => {
     hasError: passwordHasError,
     valueChangedHandler: passwordChangedHandler,
     inputBlurHandler: passwordBlurHandler,
-    reset: passwordReset,
   } = useNewInput(isNotEmpty);
 
   const {
@@ -127,17 +124,15 @@ const RegModal = props => {
         </Form.Group>
 
         <div className={styles.btns}>
-          <Nav.Link href="/reg">
-            <Button
-              variant="primary"
-              onClick={regHandler}
-              type="submit"
-              className={styles.subBtn}
-              disabled={!formIsValid}
-            >
-              Register
-            </Button>
-          </Nav.Link>
+          <Button
+            variant="primary"
+            onClick={regHandler}
+            type="submit"
+            className={styles.subBtn}
+            disabled={!formIsValid}
+          >
+            Register
+          </Button>
           <Button
             variant="secondary"
             type="button"

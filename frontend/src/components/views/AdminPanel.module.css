@@ -66,6 +66,5 @@ input[type='checkbox'] {
 table {
   background-color: rgba(255, 244, 228, 0.705);
   font-size: 1.5rem;
-  /* font-family: "Lusitana", serif; */
   font-family: 'Open Sans', sans-serif;
 }

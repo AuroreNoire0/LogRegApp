@@ -2,8 +2,10 @@ import styles from './Navigation.module.css';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import LogRegButtons from './LogRegButtons';
+import { useNavigate } from 'react-router-dom';
 
 function Navigation(props) {
+  let navigate = useNavigate();
   const navStyle = `${styles.nav} d-flex justify-content-between`;
 
   return (
@@ -15,15 +17,13 @@ function Navigation(props) {
           onShowRegModal={props.onShowRegModal}
         />
       ) : (
-        <Nav.Link href="/">
-          <Button
-            variant="primary"
-            onClick={props.onLogOut}
-            className={styles.button}
-          >
-            Log Out
-          </Button>
-        </Nav.Link>
+        <Button
+          variant="primary"
+          onClick={props.onLogOut}
+          className={styles.button}
+        >
+          Log Out
+        </Button>
       )}
     </Nav>
   );

@@ -1,22 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Switch,
-} from 'react-router-dom';
-import Background from './components/Background';
+import React, { useState } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Footer from './components/Footer';
 import Home from './components/views/Home';
 import Navigation from './components/Navigation';
 import LogModal from './modals/LogModal';
 import RegModal from './modals/RegModal';
+import AdminView from './components/AdminView';
 
 const App = () => {
   const [logModalOpened, setLogModalOpened] = useState(false);
   const [regModalOpened, setRegModalOpened] = useState(false);
   const [userLogged, setUserLogged] = useState(false);
+  const navigate = useNavigate();
 
   const openLogModal = () => {
     setLogModalOpened(true);
@@ -43,10 +39,11 @@ const App = () => {
 
   const logOutHandler = () => {
     setUserLogged(false);
+    navigate('/');
   };
 
   return (
-    <Router>
+    <React.Fragment>
       <Navigation
         onShowLogModal={openLogModal}
         onShowRegModal={openRegModal}
@@ -66,11 +63,11 @@ const App = () => {
 
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
-        <Route path="/logged" element={<Background />}></Route>
+        <Route path="/admin" element={<AdminView />}></Route>
       </Routes>
 
       <Footer></Footer>
-    </Router>
+    </React.Fragment>
   );
 };
 
