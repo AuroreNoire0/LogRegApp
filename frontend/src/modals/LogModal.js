@@ -2,11 +2,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import useNewInput from '../hooks/use-new-input';
 import styles from './LogModal.module.css';
-import Nav from 'react-bootstrap/Nav';
-import { useNavigate } from 'react-router-dom';
+import ErrorMessage from '../components/ErrorMessage';
 
 const LogModal = props => {
-  let navigate = useNavigate();
   const isNotEmpty = value => value.trim() !== '';
   const isEmail = value => value.includes('@');
 
@@ -16,7 +14,6 @@ const LogModal = props => {
     hasError: passwordHasError,
     valueChangedHandler: passwordChangedHandler,
     inputBlurHandler: passwordBlurHandler,
-    reset: passwordReset,
   } = useNewInput(isNotEmpty);
 
   const {
@@ -25,18 +22,14 @@ const LogModal = props => {
     hasError: emailHasError,
     valueChangedHandler: emailChangedHandler,
     inputBlurHandler: emailBlurHandler,
-    reset: emailReset,
   } = useNewInput(isNotEmpty && isEmail);
 
   const formIsValid = emailIsValid && passwordIsValid;
 
-  const logFormStyles = `${styles.logForm} col-5`;
+  const logFormStyles = `${styles.logForm} col-10 col-sm-7 col-lg-4`;
   const logIn = event => {
     event.preventDefault();
-    console.log('submitted');
-    console.log(event.target);
-    props.onClickLogBtn();
-    navigate('/admin');
+    props.onClickLogBtn(email, password);
   };
 
   const passwordStyles = passwordHasError
@@ -46,8 +39,6 @@ const LogModal = props => {
   const emailStyles = emailHasError
     ? `${styles.invalid} ${styles.input}`
     : `${styles.input}`;
-
-  const linkStyles = formIsValid ? '' : `${styles.inactiveLink}`;
 
   return (
     <div className={logFormStyles}>
@@ -79,6 +70,11 @@ const LogModal = props => {
           />
           {passwordHasError && (
             <p className={styles.errorText}>This field can't be empty.</p>
+          )}
+          {props.errorMessage ? (
+            <ErrorMessage variant="danger">{props.errorMessage}</ErrorMessage>
+          ) : (
+            ''
           )}
         </Form.Group>
 

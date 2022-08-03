@@ -1,4 +1,4 @@
-.Container {
+.container {
   border-radius: 1rem;
 }
 
@@ -11,6 +11,7 @@ input[type='checkbox'] {
 .tableToolbar {
   background-color: rgba(75, 81, 87, 0.837);
   height: 5rem;
+  width: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -24,12 +25,10 @@ input[type='checkbox'] {
   font-family: 'Open Sans', sans-serif;
 }
 
-.actionButtons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 3rem;
-  color: black;
+@media (max-width: 576px) {
+  .tableToolbar {
+    font-size: 2rem;
+  }
 }
 
 .actionButtons {
@@ -67,4 +66,5 @@ table {
   background-color: rgba(255, 244, 228, 0.705);
   font-size: 1.5rem;
   font-family: 'Open Sans', sans-serif;
+  table-layout: auto;
 }

@@ -4,36 +4,13 @@ import styles from './LogModal.module.css';
 import useNewInput from '../hooks/use-new-input';
 import { useState } from 'react';
 import axios from 'axios';
+import ErrorMessage from '../components/ErrorMessage';
 
 const RegModal = props => {
   const isNotEmpty = value => value.trim() !== '';
   const isEmail = value => value.includes('@');
-  const [newUser, setNewUser] = useState({
-    name: '',
-    email: '',
-    password: '',
-    lastLogin: new Date(),
-    registerDate: new Date(),
-    status: '',
-  });
-
-  const regHandler = event => {
-    event.preventDefault();
-    setNewUser({
-      name: { name },
-      email: { email },
-      password: { password },
-      lastLogin: '',
-      registerDate: new Date(),
-      status: 'active',
-    });
-
-    axios
-      .post('http://localhost:4000/app/signup', newUser)
-      .then(response => console.log(response.data));
-
-    console.log('bvhj');
-  };
+  const [regOK, setRegOK] = useState();
+  const [error, setError] = useState(null);
 
   const {
     value: name,
@@ -41,6 +18,7 @@ const RegModal = props => {
     hasError: nameHasError,
     valueChangedHandler: nameChangedHandler,
     inputBlurHandler: nameBlurHandler,
+    reset: resetName,
   } = useNewInput(isNotEmpty);
 
   const {
@@ -49,6 +27,7 @@ const RegModal = props => {
     hasError: passwordHasError,
     valueChangedHandler: passwordChangedHandler,
     inputBlurHandler: passwordBlurHandler,
+    reset: resetPassword,
   } = useNewInput(isNotEmpty);
 
   const {
@@ -57,12 +36,40 @@ const RegModal = props => {
     hasError: emailHasError,
     valueChangedHandler: emailChangedHandler,
     inputBlurHandler: emailBlurHandler,
-    reset: emailReset,
+    reset: resetEmail,
   } = useNewInput(isNotEmpty && isEmail);
+
+  const regHandler = async event => {
+    event.preventDefault();
+    setError(null);
+    setRegOK(false);
+
+    try {
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+        },
+      };
+
+      const { data } = await axios.post(
+        '/api/users',
+        { email, name, password },
+        config
+      );
+      localStorage.setItem('userInfo', JSON.stringify(data));
+
+      setRegOK(true);
+      resetPassword();
+      resetEmail();
+      resetName();
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
 
   const formIsValid = emailIsValid && passwordIsValid && nameIsValid;
 
-  const logFormStyles = `${styles.logForm} regModal col-5`;
+  const rogFormStyles = `${styles.logForm} regModal col-10 col-sm-7 col-lg-4`;
 
   const passwordStyles = passwordHasError
     ? `${styles.invalid} ${styles.input}`
@@ -77,7 +84,7 @@ const RegModal = props => {
     : `${styles.input}`;
 
   return (
-    <div className={logFormStyles}>
+    <div className={rogFormStyles}>
       <Form>
         <span className={styles.title}>Register</span>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -121,6 +128,12 @@ const RegModal = props => {
           {passwordHasError && (
             <p className={styles.errorText}>This field can't be empty.</p>
           )}
+          {regOK ? (
+            <ErrorMessage variant="success">
+              {'Registration successful! You can log in.'}
+            </ErrorMessage>
+          ) : null}
+          {error ? <ErrorMessage variant="danger">{error}</ErrorMessage> : ''}
         </Form.Group>
 
         <div className={styles.btns}>

@@ -2,29 +2,38 @@
   background-color: rgb(43, 45, 55);
   box-shadow: 5px 5px rgb(58, 55, 55);
   display: flex;
-
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  height: 13vh;
+  height: 14vh;
   color: rgb(238, 232, 232);
   font-size: 5rem;
-  padding: 1rem;
   width: 100%;
+  overflow: hidden;
 }
 
 .logo {
-  font-size: 6rem;
+  font-size: 5rem;
   font-style: italic;
   text-shadow: 0.2rem 0.2rem #93690fd1;
-  padding: 0rem 1rem 0rem 1rem;
+  padding: 0rem 1rem;
   font-family: 'Square Peg', cursive;
 }
 
-.button {
-  border: rgb(58, 68, 84);
-  box-shadow: 0.2rem 0.2rem rgba(39, 38, 38, 0.622);
-  font-size: 2rem;
-  padding: 1rem 2rem;
-  margin: 0 2rem;
+@media (max-width: 576px) {
+  .nav {
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .logo {
+    font-size: 5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    justify-content: space-around;
+    align-items: center;
+  }
 }

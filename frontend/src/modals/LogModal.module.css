@@ -6,12 +6,6 @@
   top: 50%;
   font-size: 2rem;
   transform: translate(-50%, -50%);
-  /* background: linear-gradient(
-    143deg,
-    rgba(231, 224, 208, 1) 1%,
-    rgb(64, 72, 85) 50%,
-    rgb(19, 19, 19) 100%
-  ); */
   background-color: rgb(238, 237, 234);
   padding: 3rem;
   box-shadow: 0.3rem 0.2rem rgba(50, 49, 49, 0.563);
@@ -29,7 +23,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* color: rgb(249, 249, 249); */
   color: rgb(22, 22, 22);
   text-shadow: 0.1rem 0.1rem rgb(125, 124, 124);
 }
@@ -54,7 +47,6 @@
 .errorText {
   font-size: 1.5rem;
   color: rgb(200, 3, 3);
-  text-shadow: 0.1rem 0.1rem black;
 }
 
 .invalid.input {
@@ -64,4 +56,9 @@
 
 .inactiveLink {
   pointer-events: none;
+}
+
+.input {
+  font-size: 1.3rem;
+  margin: 0.7rem 0rem;
 }
