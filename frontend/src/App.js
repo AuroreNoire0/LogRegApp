@@ -28,6 +28,7 @@ const App = () => {
     navigate('/');
     setLogModalOpened(true);
     setRegModalOpened(false);
+    setError(null);
   };
 
   const openRegModal = () => {
