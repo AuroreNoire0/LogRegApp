@@ -74,7 +74,6 @@ const AdminPanel = props => {
   };
 
   const selectAllChangeHandler = () => {
-    console.log(selectAll.current.checked);
     if (selectAll.current.checked) {
       checkboxes.forEach(cb => (cb.checked = true));
     } else if (!selectAll.current.checked) {

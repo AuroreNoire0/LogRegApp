@@ -29,10 +29,6 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('Error occured');
   }
-  res.json({
-    name,
-    email,
-  });
 });
 
 const authUser = asyncHandler(async (req, res) => {

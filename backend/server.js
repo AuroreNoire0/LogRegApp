@@ -9,7 +9,9 @@ dotenv.config();
 connectDB();
 app.use(express.json());
 
-const __dirname = path.resolve();
+app.use('/api/users', userRoutes);
+
+__dirname = path.resolve();
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')));
@@ -23,7 +25,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.use('/api/users', userRoutes);
+app.get('/', (req, res) => {
+  res.send('API is running..');
+});
+
 app.use(notFound);
 app.use(errorHandler);
 
