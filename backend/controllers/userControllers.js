@@ -93,6 +93,19 @@ const unblockUser = asyncHandler(async (req, res) => {
   }
 });
 
+const lastLoginUpdate = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.lastLogin = Date.now();
+    updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
 module.exports = {
   registerUser,
   authUser,
@@ -100,4 +113,5 @@ module.exports = {
   deleteUser,
   blockUser,
   unblockUser,
+  lastLoginUpdate,
 };

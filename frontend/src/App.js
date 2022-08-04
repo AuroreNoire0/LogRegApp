@@ -8,6 +8,9 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
+  USER_UPDATE_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
 } from './constants/userConstants';
 import Footer from './components/Footer';
 import Home from './components/views/Home';
@@ -15,6 +18,7 @@ import Navigation from './components/Navigation';
 import LogModal from './modals/LogModal';
 import RegModal from './modals/RegModal';
 import AdminView from './components/views/AdminView';
+import store from './store';
 
 const App = () => {
   const [logModalOpened, setLogModalOpened] = useState(false);
@@ -45,6 +49,38 @@ const App = () => {
     setRegModalOpened(false);
   };
 
+  const lastLoginUpd = async () => {
+    try {
+      dispatch({ type: USER_UPDATE_REQUEST });
+
+      const {
+        userLogin: { userInfo },
+      } = store.getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const { data } = await axios.post(
+        `/api/users/lastlogin/${userInfo._id}`,
+        config
+      );
+
+      dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
+
+      localStorage.setItem('userInfo', JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: USER_UPDATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
   const setUserLoggedHandler = async (email, password) => {
     try {
       dispatch({ type: USER_LOGIN_REQUEST });
@@ -69,6 +105,7 @@ const App = () => {
       setUserLogged(true);
       setLogModalOpened(false);
       navigate('/admin');
+      lastLoginUpd();
       setError(null);
     } catch (error) {
       dispatch({

@@ -273,6 +273,7 @@ const AdminPanel = props => {
                       email: user.email,
                       status: user.status,
                       createdAt: user.createdAt,
+                      lastLogin: user.lastLogin,
                     }}
                     key={user._id}
                   />
