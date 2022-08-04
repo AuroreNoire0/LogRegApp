@@ -26,7 +26,7 @@ import ErrorMessage from '../ErrorMessage';
 const AdminPanel = props => {
   const [users, setUsers] = useState([]);
   const [checkboxes, setCheckboxes] = useState([]);
-  const [checkedId, setCheckedId] = useState();
+  const [checkedId, setCheckedId] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isChanged, setIsChanged] = useState(false);
   const [error, setError] = useState(null);
@@ -75,9 +75,11 @@ const AdminPanel = props => {
 
   const selectAllChangeHandler = () => {
     if (selectAll.current.checked) {
-      checkboxes.forEach(cb => (cb.checked = true));
+      checkboxes.map(cb => (cb.checked = true));
+      setCheckedId(checkboxes.map(cb => cb.id));
     } else if (!selectAll.current.checked) {
-      checkboxes.forEach(cb => (cb.checked = false));
+      checkboxes.map(cb => (cb.checked = false));
+      setCheckedId([]);
     }
   };
 
@@ -92,7 +94,7 @@ const AdminPanel = props => {
   };
 
   const deleteUserHandler = async () => {
-    checkedId.forEach(async id => {
+    checkedId.map(async id => {
       try {
         dispatch({ type: USER_DELETE_REQUEST });
 
@@ -134,7 +136,7 @@ const AdminPanel = props => {
   };
 
   const blockUserHandler = async () => {
-    checkedId.forEach(async id => {
+    checkedId.map(async id => {
       try {
         dispatch({ type: USER_UPDATE_REQUEST });
 
@@ -174,13 +176,9 @@ const AdminPanel = props => {
   };
 
   const unblockUserHandler = async () => {
-    checkedId.forEach(async id => {
+    checkedId.map(async id => {
       try {
         dispatch({ type: USER_UPDATE_REQUEST });
-
-        const {
-          userLogin: { userInfo },
-        } = store.getState();
 
         const config = {
           headers: {
@@ -192,13 +190,6 @@ const AdminPanel = props => {
         dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
 
         localStorage.setItem('userInfo', JSON.stringify(data));
-        if (userInfo._id === id) {
-          setTimeout(() => {
-            dispatch({ type: USER_LOGOUT });
-            props.onLogout();
-            throw new Error(`You can't perform this action`);
-          }, 2000);
-        }
       } catch (error) {
         setIsLoading(true);
         dispatch({
